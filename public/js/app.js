@@ -219,6 +219,9 @@ window.addEventListener('offline', isOnline );
 
 isOnline();
 
+
+// notificaciones
+
 function verificaSuscripcion( activadas ){
 
     if ( activadas ) {
@@ -228,7 +231,6 @@ function verificaSuscripcion( activadas ){
         btnActivadas.addClass("oculto")
         btnDesactivadas.removeClass("oculto")
     }
-
 }
 
 verificaSuscripcion();
@@ -237,7 +239,7 @@ function notificame(){
     if( !window.Notification )  {
         console.log( "Este navegador no soporta notificaciones" )
         return
-    }
+    } 
 
     if( Notification.permission === "granted" ){
         //new Notification( "HOla - granted" );
@@ -257,3 +259,19 @@ function notificame(){
 }
 
 //notificame()
+
+// Get Key
+
+function getPublicKey(){
+
+    // fetch('api/key').then( res => res.text() )
+    //                 .then( console.log )
+
+    return fetch('api/key')
+            .then( res => res.arrayBuffer() )
+            // retornar el arreglo como un Uint8array
+            .then( key => new Uint8Array( key ) ) 
+
+}
+
+getPublicKey().then( console.log );
